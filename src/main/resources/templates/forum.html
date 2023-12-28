@@ -1,0 +1,29 @@
+<h1 th:text="${'Форум ' + forum.name}"></h1>
+<h6 th:text="${'Описание: ' + forum.description}"></h6>
+
+<div th:each="post : ${forum.getPosts()}">
+    <span style="color: green; border-left: 2px solid green;" th:text="${post.getTitle()}"></span>
+    <div style="margin-left: 20px;" th:each="comment : ${post.getComments()}">
+        <span style="font-size: 10px;color: white; border: 2px solid darkseagreen; border-radius: 4px; background-color: darkseagreen"
+              th:text="${comment.getUser().getUsername() + '(' + comment.getUser().getRole().getName() + ')'}"></span>
+        <span style="font-size: 10px;" th:text="${comment.content}"></span>
+    </div>
+    <form th:type="POST" action="/forum/add_comment">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+        <input type="hidden" name="forumId" th:value="${forum.getId()}" />
+        <input type="hidden" name="postId" th:value="${post.getId()}">
+        <span>Comment</span>
+        <input type="text" name="content"/>
+        <input type="submit" value="New comment"/>
+    </form>
+</div>
+
+<form th:type="POST" action="/forum/post">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+    <input type="hidden" name="forumId" th:value="${forum.getId()}" />
+    <span>Title</span>
+    <input type="text" name="title"/>
+    <span>Content</span>
+    <input type="text" name="content"/>
+    <input type="submit" value="Create post"/>
+</form>

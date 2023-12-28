@@ -1,0 +1,18 @@
+<h1>Category edit</h1>
+
+<form action="/cat/create" th:method="POST">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+    <label>
+        <input name="name" type="text"/>
+    </label>
+
+    <button type="submit">Create New Role</button>
+</form>
+<form action="/cat/change" th:type="POST" th:each="cat : ${cats}">
+    <input type="hidden" name="roleId" th:value="${cat.getId()}">
+    <label>
+        <input type="text" name="name" th:value="${cat.getName()}">
+    </label>
+    <input type="submit" name="delete" th:value="Delete"/>
+    <input type="submit" name="edit" th:value="Edit"/>
+</form>

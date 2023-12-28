@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Role Edit</title>
+</head>
+<body>
+<h2>Edit User Role</h2>
+<form action="/role/change-user-role" th:method="POST">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+    <select name="userId">
+        <option value="">Select User</option>
+        <!-- Здесь должны быть добавлены элементы для каждого пользователя -->
+        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"></option>
+    </select>
+
+    <select name="roleId">
+        <option value="">Select Role</option>
+        <!-- Здесь должны быть добавлены элементы для каждой роли -->
+        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+    </select>
+
+    <button type="submit">Change Role</button>
+</form>
+<form action="/role/create" th:method="POST">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+    <label>
+        <input name="name" type="text"/>
+    </label>
+
+    <button type="submit">Create New Role</button>
+</form>
+<form action="/role/change" th:type="POST" th:each="role : ${roles}">
+    <input type="hidden" name="roleId" th:value="${role.getId()}">
+    <label>
+        <input type="text" name="name" th:value="${role.getName()}">
+    </label>
+    <input type="submit" name="delete" th:value="Delete"/>
+    <input type="submit" name="edit" th:value="Edit"/>
+</form>
+</body>
+</html>

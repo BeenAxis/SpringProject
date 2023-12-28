@@ -1,0 +1,11 @@
+<h1>Глобальный чат</h1>
+
+<div style="margin-left: 20px;" th:each="msg : ${messages}">
+    <span style="font-size: 10px;" th:text="${msg.content}"></span>
+</div>
+
+<form th:type="POST" action="/message/send">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+    <input type="text" name="msg"/>
+    <input type="submit"/>
+</form>

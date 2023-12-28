@@ -1,0 +1,17 @@
+<h1>Forums</h1>
+
+<div th:each="forum : ${forums}">
+    <a th:href="${'/forum/' + forum.getId()}" th:text="${forum.getName()}"></a>
+</div>
+
+<h2>Create new forum</h2>
+<form th:type="POST" action="/forum/create">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+    <label>
+        <input type="text" name="name"/>
+    </label>
+    <label>
+        <input type="text" name="desc"/>
+    </label>
+    <input type="submit" value="Create forum">
+</form>

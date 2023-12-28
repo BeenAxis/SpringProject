@@ -1,0 +1,18 @@
+<h1>Tags edit</h1>
+
+<form action="/tag/create" th:method="POST">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+    <label>
+        <input name="name" type="text"/>
+    </label>
+
+    <button type="submit">Create New Role</button>
+</form>
+<form action="/tag/change" th:type="POST" th:each="tag : ${tags}">
+    <input type="hidden" name="roleId" th:value="${tag.getId()}">
+    <label>
+        <input type="text" name="name" th:value="${tag.getName()}">
+    </label>
+    <input type="submit" name="delete" th:value="Delete"/>
+    <input type="submit" name="edit" th:value="Edit"/>
+</form>
